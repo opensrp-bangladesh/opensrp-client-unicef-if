@@ -1,0 +1,69 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:1.2.3"
+        classpath 'org.apache.commons:commons-lang3:3.3.2'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
+    }
+}
+apply plugin: 'com.android.application'
+
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:21.0.3'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':opensrp-app')
+
+    compile 'com.android.support:support-annotations:21.0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
+
+}
+android {
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
+
+    defaultConfig {
+        applicationId "org.ei.opensrp.mcare"
+        minSdkVersion 16
+        targetSdkVersion 21
+
+        versionCode 36
+        versionName "34.00"
+
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'LICENSE.txt'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+
